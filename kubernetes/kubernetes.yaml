@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-app
+  name: nodejs-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - image: >-
+            gcr.io/nodejs-project-295615/github.com/abdullahalaslan/nodejs-pipeline
+          imagePullPolicy: IfNotPresent
+          name: nodejs-pipeline-sha256-1
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: nodejs-app
+  name: nodejs-app-hpa-jhdk
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 80
+      type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nodejs-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: nodejs-app
+  name: nodejs-app-service
+  namespace: default
+spec:
+  clusterIP: 10.4.1.197
+  externalTrafficPolicy: Cluster
+  ports:
+    - nodePort: 32639
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: nodejs-app
+  sessionAffinity: None
+  type: LoadBalancer
