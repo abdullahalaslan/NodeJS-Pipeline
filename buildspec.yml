@@ -9,15 +9,14 @@ phases:
       - npm install
   pre_build:
     commands:
+      - docker build -t my-nodejs-image myApp/
       - echo Installing source NPM dependencies...
       - npm install
   build:
     commands:
       - echo Build started on `date`
       - echo Compiling the Node.js code
-  post_build:
-    commands:
-      - echo Build completed on `date`
+
 # Include only the files required for your application to run.
 # Do not use recursively include artifacts from node_modules directory as it will include unnecessary packages 
 # used only for building and testing.
