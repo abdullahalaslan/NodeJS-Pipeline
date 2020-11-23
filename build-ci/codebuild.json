@@ -87,40 +87,6 @@
             }
           ]
         }
-      },
-      "CodeBuildVPC": {
-        "Type": "AWS::EC2::VPC",
-        "Properties": {
-          "CidrBlock": "10.0.0.0/16",
-          "EnableDnsSupport": "true",
-          "EnableDnsHostnames": "true",
-          "Tags": [
-  
-            {
-              "Key": "name",
-              "Value": "codebuild"
-            }
-          ]
-        }
-      },
-      "CodeBuildSubnet": {
-        "Type": "AWS::EC2::Subnet",
-        "Properties": {
-          "VpcId": {
-            "Ref": "CodeBuildVPC"
-          },
-          "CidrBlock": "10.0.1.0/24"
-        }
-      },
-      "CodeBuildSecurityGroup": {
-        "Type": "AWS::EC2::SecurityGroup",
-        "Properties": {
-          "GroupName": "Codebuild Internet Group",
-          "GroupDescription": "CodeBuild SecurityGroup",
-          "VpcId": {
-            "Ref": "CodeBuildVPC"
-          }
-        }
       }
     }
   }
