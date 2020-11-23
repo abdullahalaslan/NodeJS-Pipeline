@@ -7,13 +7,9 @@ phases:
     commands:
       - echo Installing npm...
       - npm install
-  pre_build:
-    commands:
-      - docker build -t my-nodejs-image myApp/
-      - echo Installing source NPM dependencies...
-      - npm install
   build:
     commands:
+      - docker build -t my-nodejs-image ./myApp/
       - echo Build started on `date`
       - echo Compiling the Node.js code
 
@@ -21,10 +17,3 @@ phases:
 # Do not use recursively include artifacts from node_modules directory as it will include unnecessary packages 
 # used only for building and testing.
 # ExpressJS apps will need other artifact directories included (bin/*, public/*, routes/*, views/* etc).
-artifacts:
-  files:
-    - myApp.js
-    - index.html
-    - package.json
-    - node_modules/async/*
-    - node_modules/lodash/*
