@@ -2,7 +2,7 @@ var http = require('http');
 
 var server = http.createServer(function(req, res) {
 res.writeHead(200);
-res.write('baris abi nolur gitme :/');
+res.write('Hello World From NodeJS Abdullah');
 res.end();
 });
-server.listen(8080);
+server.listen(8080)
