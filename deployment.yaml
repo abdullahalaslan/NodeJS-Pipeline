@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-app
+  name: nodejs-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - image: 574868243623.dkr.ecr.eu-west-1.amazonaws.com/nodejs-image-repository:latest
+resources:
+            requests:
+              cpu: "10m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 11030
+              name: http
+          command:
+            - sh
+            - -c
+            - npm start
+          readinessProbe:
+            httpGet:
+              path: /readiness_check
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /liveness_check
+              port: 8080
+            initialDelaySeconds: 70
+            timeoutSeconds: 10
+            failureThreshold: 10  
