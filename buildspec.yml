@@ -9,8 +9,6 @@ phases:
       - npm install
   build:
     commands:
-      - TOKEN=$(aws ecr get-authorization-token --output text --query 'authorizationData[].authorizationToken')
-      - curl -i -H "Authorization: Basic $TOKEN" https://574868243623.dkr.ecr.eu-west-1.amazonaws.com/v2/nodejs-image-repository/tags/list
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 574868243623.dkr.ecr.eu-west-1.amazonaws.com
       - docker build -t nodejs-image-repository ./myApp/
       - docker tag nodejs-image-repository:latest 574868243623.dkr.ecr.eu-west-1.amazonaws.com/nodejs-image-repository:latest
