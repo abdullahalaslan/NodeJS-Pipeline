@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 574868243623.dkr.ecr.eu-west-1.amazonaws.com
-      - docker build -t nodejs-image-repository . /myApp/
+      - docker build -t nodejs-image-repository .
       - docker tag nodejs-image-repository:latest 574868243623.dkr.ecr.eu-west-1.amazonaws.com/nodejs-image-repository:latest
       - docker push 574868243623.dkr.ecr.eu-west-1.amazonaws.com/nodejs-image-repository:latest
       - echo Build started on `date`
