@@ -9,7 +9,7 @@ phases:
       - npm install
   build:
     commands:
-      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 574868243623.dkr.ecr.eu-west-1.amazonaws.com
+      - $(aws ecr get-login --no-include-email --region eu-west-1)
       - docker build -t nodejs-image-repository .
       - docker tag nodejs-image-repository:latest 574868243623.dkr.ecr.eu-west-1.amazonaws.com/nodejs-image-repository:latest
       
