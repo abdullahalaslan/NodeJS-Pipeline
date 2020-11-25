@@ -12,7 +12,11 @@
 
 > App
 
-- NodeJs Hello World Application.
+- NodeJs Hello World Application
+
+> Source Control
+
+- Using Github and Git
 
 > Infrastructure
 
