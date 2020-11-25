@@ -23,3 +23,5 @@ phases:
       - ls -la
       - echo Push the latest image to cluster
       - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+      - kubectl apply -f scaling.yaml
