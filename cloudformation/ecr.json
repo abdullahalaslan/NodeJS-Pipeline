@@ -1,0 +1,23 @@
+{
+    "Type": "AWS::ECR::Repository",
+    "Properties": {
+      "RepositoryName" : "nodejs-image-repository",
+      "RepositoryPolicyText" : {
+        "Version": "2008-10-17",
+        "Statement": [
+          {
+            "Sid": "AllowPushPull",
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": [
+                "arn:aws:iam::574868243623:user/Aalaslan"
+              ]
+            },
+            "Action": [
+              "ecr:*"  
+            ]
+          }
+        ]
+      }
+    }
+  }

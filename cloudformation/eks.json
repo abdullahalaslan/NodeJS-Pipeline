@@ -1,0 +1,24 @@
+{
+    "Resources": {
+        "myCluster": {
+            "Type": "AWS::EKS::Cluster",
+            "Properties": {
+                "Name": "nodejs-cluster",
+                "Version": "1.18",
+                "RoleArn": "arn:aws:iam::574868243623:role/EKSClusterRole",
+                "ResourcesVpcConfig": {
+                    "SecurityGroupIds": [
+                      "sg-042214dafbb9f63ba",
+                       "sg-6222cd14"
+                      
+                    ],
+                    "SubnetIds": [
+                      "subnet-bcb7e4f4",
+                      "subnet-0f44c955",
+                      "subnet-c00744a6"
+                    ]
+                }
+            }
+        }
+    }
+}
